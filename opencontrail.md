@@ -38,7 +38,7 @@ Opencontrail Networking for Kubernetes Deployment in GCE
 - [Starting a Cluster](#starting-a-cluster)
     - [Set up working directory](#set-up-working-directory)
     - [Configure and start the kubernetes cluster](#configure-and-start-the-kubernetes-cluster)
-    - [Test it out](#test-it-out)
+    - [Test](#test)
     - [Deploy addons](#deploy-addons)
     - [Trouble shooting](#trouble-shooting)
 
@@ -104,43 +104,50 @@ An example cluster is listed below:
 |130.10.103.250|   master |
 |104.10.103.250|   gateway|
 
-Kubernetes-Master:
+**Kubernetes-Master:
 
 Opencontrail controller modules in the container are deployed and configured on the master. 
 Contrail contnaiers on the master are:
 
-root@kubernetes-master:~# docker ps |grep contrail | grep -v pause
-8d41e850e55b        opencontrail/kube-network-manager                                                   "/go/kube-network-man"   56 minutes ago      Up 56 minutes                           k8s_kube-network-manager.932351ab_kube-network-manager-kubernetes-master_default_d2be274a13c05a0d7e8a683587e18586_8515e494
-f5cd41ff1503        opencontrail/web:2.20                                                               "/usr/bin/contrail-we"   57 minutes ago      Up 57 minutes                           k8s_contrail-web.c14fc93d_contrail-web-kubernetes-master_default_e217b52ab60719f2394e4b1403511132_1a383cfc
-8aa226fbc877        opencontrail/config:2.20                                                            "/usr/bin/contrail-sc"   57 minutes ago      Up 57 minutes                           k8s_contrail-schema.bceb4ca0_contrail-schema-kubernetes-master_default_c3a3c58883dc5e3cd17d1432f0d4208e_905491ad
-bd9cbb8b5cb5        opencontrail/control:2.20                                                           "/usr/bin/contrail-co"   57 minutes ago      Up 56 minutes                           k8s_contrail-control.9d2ce2c5_contrail-control-kubernetes-master_default_a725f6e0bd53a8239a6764761384b60f_1f9c48dc
-b95a13b61d40        opencontrail/ifmap-server:2.20                                                      "/entrypoint.sh"         57 minutes ago      Up 57 minutes                           k8s_ifmap-server.12ea28bd_ifmap-server-kubernetes-master_default_c8589a0f26652c384cc462b4ca178910_abea9e3f
-57c4596c9481        opencontrail/config:2.20                                                            "/usr/bin/contrail-ap"   57 minutes ago      Up 57 minutes                           k8s_contrail-api.6f2e4b6f_contrail-api-kubernetes-master_default_ce0f7e301d5c1515f055acdcccf579d3_e9446d4c
-e68d1eaec682        cassandra:2.2.0                                                                     "/bin/sh -c 'sed -ri "   57 minutes ago      Up 57 minutes                           k8s_opencontrail-config-db.31407271_cassandra-kubernetes-master_default_5b2bd074fdc25365d3856cf7415757c0_5583722c
-4c55916f2455        opencontrail/analytics:2.20                                                         "/usr/bin/contrail-co"   57 minutes ago      Up 57 minutes                           k8s_contrail-collector.803551f2_contrail-collector-kubernetes-master_default_23d91f648a03a6b16e8650394bacbebd_7ff480ca
-bb42ad2c4c49        opencontrail/analytics:2.20                                                         "/usr/bin/contrail-qu"   57 minutes ago      Up 57 minutes                           k8s_contrail-query-engine.30575520_contrail-query-engine-kubernetes-master_default_e214cb3721ecc1d4430700eaa2090fca_8c572560
-3de472ba306d        opencontrail/analytics:2.20                                                         "/usr/bin/contrail-an"   57 minutes ago      Up 57 minutes                           k8s_contrail-analytics-api.b73654b9_contrail-analytics-api-kubernetes-master_default_52820ac14513bce55d15926b90de75cd_745698d7
+`root@kubernetes-master:~# docker ps |grep contrail | grep -v pause`
+`8d41e850e55b  opencontrail/kube-network-manager`
+`f5cd41ff1503  opencontrail/web:2.20`
+`8aa226fbc877  opencontrail/config:2.20` 
+`bd9cbb8b5cb5  opencontrail/control:2.20
+`b95a13b61d40  opencontrail/ifmap-server:2.20` 
+`57c4596c9481  opencontrail/config:2.20`
+`e68d1eaec682  cassandra:2.2.0`
+`4c55916f2455  opencontrail/analytics:2.20`
+`bb42ad2c4c49  opencontrail/analytics:2.20`
+`3de472ba306d  opencontrail/analytics:2.20`
 
 Details on kube-network-manager and kubernetes on opencontrail can be found @ https://pedrormarques.wordpress.com/2015/07/14/kubernetes-networking-with-opencontrail/ 
 
-Kubernetes-minion:
+**Kubernetes-minion:
 
 Opencontrail vrouter agnet in container and kernel module (vrouter.ko) is deployed on the kubernetes cluster nodes.
 
-root@kubernetes-minion-4bfu:~# docker ps |grep contrail | grep -v pause
-497a0d6bd096        opencontrail/vrouter-agent:2.20                      "/usr/bin/contrail-vr"   About an hour ago   Up About an hour                        k8s_contrail-vrouter-agent.d97cd63f_contrail-vrouter-agent-kubernetes-minion-4bfu_default_91106db29e22a244cf51102991662f2f_bfb3b90c
+`root@kubernetes-minion-4bfu:~# docker ps |grep contrail | grep -v pause`
+`497a0d6bd096    opencontrail/vrouter-agent:2.20`
 
 root@kubernetes-minion-4bfu:~# lsmod |grep vrouter
 vrouter               235766  1 
 
 Opencontrail vrouter agent manages the forwarding path for data. Please find more details on this @ https://github.com/Juniper/contrail-controller/blob/master/src/vnsw/agent/README
 
-Kubernetes-Opencontrail-gateway:
+**Kubernetes-Opencontrail-gateway:
 
 Opencontrail gateway provides gateway fucntion for any external (north-south) traffic going towards the internal kubernetes pods.
 Details on this functionality can be found @ https://github.com/Juniper/contrail-controller/wiki/Simple-Gateway
 
-### Test it out
+Opencontrail vrouter agnet in container and kernel module (vrouter.ko) is deployed on kubernetes-opencontrail-gateway
+
+`root@kubernetes-opencontrail-gateway:~# lsmod | grep vrouter`
+`vrouter               235766  1 `
+`root@kubernetes-opencontrail-gateway:~# docker ps | grep contrail | grep -v pause`
+`f88f474628fa        opencontrail/vrouter-agent:2.20`
+
+### Test
 
 You can use `kubectl` command to check if the newly created cluster is working correctly.
 The `kubectl` binary is under the `cluster/ubuntu/binaries` directory.
@@ -156,8 +163,37 @@ NAME            LABELS                                 STATUS
 104.10.103.250   kubernetes.io/hostname=104.10.103.250   Ready
 ```
 
-Also you can run Kubernetes [guest-example](../../examples/guestbook-go/) to build a redis backend cluster．
+Deploy k8petstore by following README for k8petstore and check the functionaility for it on opencontrail
 
+You can run Kubernetes [guest-example](../../examples/guestbook-go/) to build a redis backend cluster talking to redis-master
+and a frontend guestbook app. Few changes are required for this app to work in opencontrail environment.
+Please apply the patch from @ https://github.com/Juniper/contrail-kubernetes/blob/vrouter-manifest/cluster/patch_guest_book
+
+Follow steps below to apply patch:
+
+1. cd to kubernetes base directory
+2. wget https://raw.githubusercontent.com/Juniper/contrail-kubernetes/vrouter-manifest/cluster/patch_guest_book 
+2. from kubernetes base direcrtory run the commands:
+   2a. git apply --stat patch_guest_book
+   2b. git apply --check patch_guest_book
+   If 2a and 2b are sucessfull and have no errors, please applyt the patch with command:
+   
+3. git apply patch_guest_book
+
+4. Copy the guestbook-go app to the master where you have access to kubectl and deploy the app.
+5. Follow instructions from https://github.com/kubernetes/kubernetes/blob/master/examples/guestbook-go/README.md
+
+Please note the required steps for deploying are:
+
+`kubectl create -f guestbook-go/redis-master-controller.json` 
+`kubectl create -f guestbook-go/redis-master-service.json`
+
+`kubectl create -f guestbook-go/redis-slave-controller.json` 
+`kubectl create -f guestbook-go/redis-slave-service.json` 
+
+`kubectl create -f guestbook-go/guestbook-controller.json` 
+`kubectl create -f guestbook-go/guestbook-service.json` 
+   
 
 ### Deploy addons
 
@@ -240,12 +276,6 @@ $ KUBERNETES_PROVIDER=ubuntu ./kube-push.sh
 ```
 
 Will post the details on upgrade soon.
-
-### Test it out
-
-You can use the `kubectl` command to check if the newly upgraded kubernetes cluster is working correctly.
-
-You can deploy k8petstore by following README for k8petstore and check the functionaility for it on opencontrail
 
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
 [![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/ubuntu.md?pixel)]()
