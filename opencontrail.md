@@ -101,7 +101,7 @@ An example cluster is listed below:
 |130.10.103.250|   master |
 |104.10.103.250|   gateway|
 
-**Kubernetes-Master:
+__*Kubernetes-Master*__:
 
 Opencontrail controller modules in the container are deployed and configured on the master. 
 Contrail contnaiers on the master are:
@@ -120,9 +120,18 @@ Contrail contnaiers on the master are:
 
 Details on kube-network-manager and kubernetes on opencontrail can be found @ https://pedrormarques.wordpress.com/2015/07/14/kubernetes-networking-with-opencontrail/ 
 
-**Kubernetes-minion:
+__*Kubernetes-minion*__:
 
-Opencontrail vrouter agnet in container and kernel module (vrouter.ko) is deployed on the kubernetes cluster nodes.
+In addition to the kubelet and docker managed by kubelet, opencontrail plugin is deployed on the minion. 
+
+`DAEMON_ARGS="$DAEMON_ARGS --api-servers=https://kubernetes-master --enable-debugging-handlers=true  --cloud-provider=gce --config=/etc/kubernetes/manifests  --allow-privileged=True --v=2 --cluster-dns=10.0.0.10 --cluster-domain=cluster.local   --configure-cbr0=true --cgroup-root=/ --system-container=/system    --network_plugin=opencontrail "`
+
+The additional argument passed to kubelet is `__--network_plugin=opencontrail__` which will start the opencontrail kubelet plugin. The plugin adds container that belings to a pod to vrouter agent.
+
+root@kubernetes-minion-4bfu:~# ps -ef|grep opencontrail
+root     12419 14312  1 21:38 ?        00:00:00 /usr/bin/python /usr/libexec/kubernetes/kubelet-plugins/net/exec/opencontrail/opencontrail
+
+Opencontrail vrouter agent in container and kernel module (vrouter.ko) is deployed on the kubernetes cluster nodes.
 
 `root@kubernetes-minion-4bfu:~# docker ps |grep contrail | grep -v pause` <br />
 `497a0d6bd096    opencontrail/vrouter-agent:2.20` <br />
@@ -137,7 +146,7 @@ Opencontrail vrouter agent manages the forwarding path for data. Please find mor
 Opencontrail gateway provides gateway fucntion for any external (north-south) traffic going towards the internal kubernetes pods.
 Details on this functionality can be found @ https://github.com/Juniper/contrail-controller/wiki/Simple-Gateway
 
-Opencontrail vrouter agnet in container and kernel module (vrouter.ko) is deployed on kubernetes-opencontrail-gateway
+Opencontrail vrouter agent in container and kernel module (vrouter.ko) is deployed on kubernetes-opencontrail-gateway
 
 `root@kubernetes-opencontrail-gateway:~# lsmod | grep vrouter` <br />
 `vrouter               235766  1 ` <br />
