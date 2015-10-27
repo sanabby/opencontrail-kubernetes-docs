@@ -30,8 +30,8 @@ Documentation for other releases can be found at
 <!-- END STRIP_FOR_RELEASE -->
 
 <!-- END MUNGE: UNVERSIONED_WARNING -->
-Opencontrail Networking for Kubernetes Deployment in GCE
---------------------------------------------------------
+Opencontrail Networking for Kubernetes - (Deployment in GCE)
+------------------------------------------------------------
 
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
