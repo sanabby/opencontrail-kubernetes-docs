@@ -124,12 +124,14 @@ __*Kubernetes-minion*__:
 
 In addition to the kubelet and docker managed by kubelet, opencontrail plugin is deployed on the minion. 
 
+Kubelet on minion provisioned with opencontrail will have the opencontrail plugin configured as shown below
+
 `DAEMON_ARGS="$DAEMON_ARGS --api-servers=https://kubernetes-master --enable-debugging-handlers=true  --cloud-provider=gce --config=/etc/kubernetes/manifests  --allow-privileged=True --v=2 --cluster-dns=10.0.0.10 --cluster-domain=cluster.local   --configure-cbr0=true --cgroup-root=/ --system-container=/system    --network_plugin=opencontrail "`
 
-The additional argument passed to kubelet is `__--network_plugin=opencontrail__` which will start the opencontrail kubelet plugin. The plugin adds container that belings to a pod to vrouter agent.
+The additional argument passed to kubelet is __--network_plugin=opencontrail__ which will start the opencontrail kubelet plugin. The plugin adds container that belings to a pod to vrouter agent.
 
-root@kubernetes-minion-4bfu:~# ps -ef|grep opencontrail
-root     12419 14312  1 21:38 ?        00:00:00 /usr/bin/python /usr/libexec/kubernetes/kubelet-plugins/net/exec/opencontrail/opencontrail
+`root@kubernetes-minion-4bfu:~# ps -ef|grep opencontrail` <br />
+`root     12419 14312  1 21:38 ?        00:00:00 /usr/bin/python /usr/libexec/kubernetes/kubelet-plugins/net/exec/opencontrail/opencontrail`
 
 Opencontrail vrouter agent in container and kernel module (vrouter.ko) is deployed on the kubernetes cluster nodes.
 
