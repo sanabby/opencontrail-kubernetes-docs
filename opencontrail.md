@@ -109,17 +109,17 @@ An example cluster is listed below:
 Opencontrail controller modules in the container are deployed and configured on the master. 
 Contrail contnaiers on the master are:
 
-`root@kubernetes-master:~# docker ps |grep contrail | grep -v pause`
-`8d41e850e55b  opencontrail/kube-network-manager`
-`f5cd41ff1503  opencontrail/web:2.20`
-`8aa226fbc877  opencontrail/config:2.20` 
-`bd9cbb8b5cb5  opencontrail/control:2.20
-`b95a13b61d40  opencontrail/ifmap-server:2.20` 
-`57c4596c9481  opencontrail/config:2.20`
-`e68d1eaec682  cassandra:2.2.0`
-`4c55916f2455  opencontrail/analytics:2.20`
-`bb42ad2c4c49  opencontrail/analytics:2.20`
-`3de472ba306d  opencontrail/analytics:2.20`
+`root@kubernetes-master:~# docker ps |grep contrail | grep -v pause` <br />
+`8d41e850e55b  opencontrail/kube-network-manager` <br />
+`f5cd41ff1503  opencontrail/web:2.20` <br />
+`8aa226fbc877  opencontrail/config:2.20`  <br />
+`bd9cbb8b5cb5  opencontrail/control:2.20 <br />
+`b95a13b61d40  opencontrail/ifmap-server:2.20` <br />
+`57c4596c9481  opencontrail/config:2.20` <br />
+`e68d1eaec682  cassandra:2.2.0` <br />
+`4c55916f2455  opencontrail/analytics:2.20` <br />
+`bb42ad2c4c49  opencontrail/analytics:2.20` <br />
+`3de472ba306d  opencontrail/analytics:2.20` <br />
 
 Details on kube-network-manager and kubernetes on opencontrail can be found @ https://pedrormarques.wordpress.com/2015/07/14/kubernetes-networking-with-opencontrail/ 
 
@@ -127,11 +127,11 @@ Details on kube-network-manager and kubernetes on opencontrail can be found @ ht
 
 Opencontrail vrouter agnet in container and kernel module (vrouter.ko) is deployed on the kubernetes cluster nodes.
 
-`root@kubernetes-minion-4bfu:~# docker ps |grep contrail | grep -v pause`
-`497a0d6bd096    opencontrail/vrouter-agent:2.20`
+`root@kubernetes-minion-4bfu:~# docker ps |grep contrail | grep -v pause` <br />
+`497a0d6bd096    opencontrail/vrouter-agent:2.20` <br />
 
-root@kubernetes-minion-4bfu:~# lsmod |grep vrouter
-vrouter               235766  1 
+root@kubernetes-minion-4bfu:~# lsmod |grep vrouter <br />
+vrouter               235766  1 <br />
 
 Opencontrail vrouter agent manages the forwarding path for data. Please find more details on this @ https://github.com/Juniper/contrail-controller/blob/master/src/vnsw/agent/README
 
@@ -142,10 +142,10 @@ Details on this functionality can be found @ https://github.com/Juniper/contrail
 
 Opencontrail vrouter agnet in container and kernel module (vrouter.ko) is deployed on kubernetes-opencontrail-gateway
 
-`root@kubernetes-opencontrail-gateway:~# lsmod | grep vrouter`
-`vrouter               235766  1 `
-`root@kubernetes-opencontrail-gateway:~# docker ps | grep contrail | grep -v pause`
-`f88f474628fa        opencontrail/vrouter-agent:2.20`
+`root@kubernetes-opencontrail-gateway:~# lsmod | grep vrouter` <br />
+`vrouter               235766  1 ` <br />
+`root@kubernetes-opencontrail-gateway:~# docker ps | grep contrail | grep -v pause` <br />
+`f88f474628fa        opencontrail/vrouter-agent:2.20` <br />
 
 ### Test
 
@@ -185,14 +185,14 @@ Follow steps below to apply patch:
 
 Please note the required steps for deploying are:
 
-`kubectl create -f guestbook-go/redis-master-controller.json` 
-`kubectl create -f guestbook-go/redis-master-service.json`
+`kubectl create -f guestbook-go/redis-master-controller.json` <br />
+`kubectl create -f guestbook-go/redis-master-service.json` <br />
 
-`kubectl create -f guestbook-go/redis-slave-controller.json` 
-`kubectl create -f guestbook-go/redis-slave-service.json` 
+`kubectl create -f guestbook-go/redis-slave-controller.json` <br />
+`kubectl create -f guestbook-go/redis-slave-service.json` <br />
 
-`kubectl create -f guestbook-go/guestbook-controller.json` 
-`kubectl create -f guestbook-go/guestbook-service.json` 
+`kubectl create -f guestbook-go/guestbook-controller.json` <br />
+`kubectl create -f guestbook-go/guestbook-service.json` <br />
    
 
 ### Deploy addons
