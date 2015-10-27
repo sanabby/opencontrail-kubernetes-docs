@@ -173,15 +173,15 @@ Follow steps below to apply patch:
 
 1. cd to kubernetes base directory
 2. wget https://raw.githubusercontent.com/Juniper/contrail-kubernetes/vrouter-manifest/cluster/patch_guest_book 
-2. from kubernetes base direcrtory run the commands:
-   2a. git apply --stat patch_guest_book
-   2b. git apply --check patch_guest_book
-   If 2a and 2b are sucessfull and have no errors, please applyt the patch with command:
+3. from kubernetes base direcrtory run the commands:<br />
+   3a. git apply --stat patch_guest_book <br />
+   3b. git apply --check patch_guest_book <br />
+   If 3a and 3b are sucessfull and have no errors, please applyt the patch with command:
    
-3. git apply patch_guest_book
+4. git apply patch_guest_book
 
-4. Copy the guestbook-go app to the master where you have access to kubectl and deploy the app.
-5. Follow instructions from https://github.com/kubernetes/kubernetes/blob/master/examples/guestbook-go/README.md
+5. Copy the guestbook-go app to the master where you have access to kubectl and deploy the app.
+6. Follow instructions from https://github.com/kubernetes/kubernetes/blob/master/examples/guestbook-go/README.md
 
 Please note the required steps for deploying are:
 
