@@ -112,8 +112,8 @@ Contrail contnaiers on the master are:
 `root@kubernetes-master:~# docker ps |grep contrail | grep -v pause` <br />
 `8d41e850e55b  opencontrail/kube-network-manager` <br />
 `f5cd41ff1503  opencontrail/web:2.20` <br />
-`8aa226fbc877  opencontrail/config:2.20`  <br />
-`bd9cbb8b5cb5  opencontrail/control:2.20 <br />
+`8aa226fbc877  opencontrail/config:2.20` <br />
+`bd9cbb8b5cb5  opencontrail/control:2.20` <br />
 `b95a13b61d40  opencontrail/ifmap-server:2.20` <br />
 `57c4596c9481  opencontrail/config:2.20` <br />
 `e68d1eaec682  cassandra:2.2.0` <br />
